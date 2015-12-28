@@ -93,7 +93,7 @@ class ShopItem extends ActiveRecord implements LoggableInterface
             // ...
             [
                 'class' => ChangelogBehavior::class,
-                'excludeAttributes' => [
+                'ignoreAttributes' => [ // these attributes are not tracked
                     'updated_at',
                     'synchronized_at',
                 ],

@@ -60,17 +60,17 @@ class Changelog extends \yii\db\ActiveRecord
 
     /**
      * @param \yii\db\ActiveRecord $Model
-     * @param array $excludeAttributes
+     * @param array $ignoreAttributes
      * @return static
      */
-    public static function logInsert($Model, $excludeAttributes = [])
+    public static function logInsert($Model, $ignoreAttributes = [])
     {
         $Changelog = new static;
 
         $attributes = $Model->attributes;
 
-        if (!empty($excludeAttributes)) {
-            foreach ($excludeAttributes as $field) {
+        if (!empty($ignoreAttributes)) {
+            foreach ($ignoreAttributes as $field) {
                 if (isset($attributes[$field])) {
                     unset($attributes[$field]);
                 }
@@ -97,16 +97,16 @@ class Changelog extends \yii\db\ActiveRecord
 
     /**
      * @param \yii\db\ActiveRecord $Model
-     * @param array $excludeAttributes
+     * @param array $ignoreAttributes
      * @param array $changedAttributes array with data before update
      * @return static|false
      */
-    public static function logUpdate($Model, $excludeAttributes = [], $changedAttributes = [])
+    public static function logUpdate($Model, $ignoreAttributes = [], $changedAttributes = [])
     {
         $attributes = $Model->attributes;
 
-        if (!empty($excludeAttributes)) {
-            foreach ($excludeAttributes as $field) {
+        if (!empty($ignoreAttributes)) {
+            foreach ($ignoreAttributes as $field) {
                 if (isset($attributes[$field])) {
                     unset($attributes[$field]);
                 }
@@ -154,17 +154,17 @@ class Changelog extends \yii\db\ActiveRecord
 
     /**
      * @param \yii\db\ActiveRecord $Model
-     * @param array $excludeAttributes
+     * @param array $ignoreAttributes
      * @return static
      */
-    public static function logDelete($Model, $excludeAttributes = [])
+    public static function logDelete($Model, $ignoreAttributes = [])
     {
         $Changelog = new static;
 
         $attributes = $Model->attributes;
 
-        if (!empty($excludeAttributes)) {
-            foreach ($excludeAttributes as $field) {
+        if (!empty($ignoreAttributes)) {
+            foreach ($ignoreAttributes as $field) {
                 if (isset($attributes[$field])) {
                     unset($attributes[$field]);
                 }

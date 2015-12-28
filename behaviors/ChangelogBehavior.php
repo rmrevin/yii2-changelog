@@ -17,7 +17,7 @@ class ChangelogBehavior extends \yii\base\Behavior
 {
 
     /** @var array exclude attributes */
-    public $excludeAttributes = [];
+    public $ignoreAttributes = [];
 
     /**
      * @inheritdoc
@@ -39,7 +39,7 @@ class ChangelogBehavior extends \yii\base\Behavior
         /** @var \yii\db\ActiveRecord $Model */
         $Model = $Event->sender;
 
-        \rmrevin\yii\changelog\resources\Changelog::logInsert($Model, $this->excludeAttributes);
+        \rmrevin\yii\changelog\resources\Changelog::logInsert($Model, $this->ignoreAttributes);
     }
 
     /**
@@ -50,7 +50,7 @@ class ChangelogBehavior extends \yii\base\Behavior
         /** @var \yii\db\ActiveRecord $Model */
         $Model = $Event->sender;
 
-        \rmrevin\yii\changelog\resources\Changelog::logUpdate($Model, $this->excludeAttributes, $Event->changedAttributes);
+        \rmrevin\yii\changelog\resources\Changelog::logUpdate($Model, $this->ignoreAttributes, $Event->changedAttributes);
     }
 
     /**
@@ -61,6 +61,6 @@ class ChangelogBehavior extends \yii\base\Behavior
         /** @var \yii\db\ActiveRecord $Model */
         $Model = $Event->sender;
 
-        \rmrevin\yii\changelog\resources\Changelog::logDelete($Model, $this->excludeAttributes);
+        \rmrevin\yii\changelog\resources\Changelog::logDelete($Model, $this->ignoreAttributes);
     }
 }
