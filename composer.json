@@ -1,0 +1,43 @@
+{
+  "name": "rmrevin/yii2-activerecord-changelog",
+  "description": "Active record changelog extension for Yii 2 framework",
+  "keywords": [
+    "yii",
+    "activerecord",
+    "history",
+    "changelog"
+  ],
+  "type": "yii2-extension",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "support": {
+    "issues": "https://github.com/rmrevin/yii2-changelog/issues",
+    "source": "https://github.com/rmrevin/yii2-changelog"
+  },
+  "authors": [
+    {
+      "name": "Revin Roman",
+      "email": "roman@rmrevin.com",
+      "homepage": "https://rmrevin.com/"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+
+    "yiisoft/yii2": "2.0.*"
+  },
+  "require-dev": {
+    "yiisoft/yii2-debug": "2.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "rmrevin\\yii\\changelog\\": ""
+    }
+  },
+  "extra": {
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/bower"
+    }
+  }
+}
