@@ -79,6 +79,9 @@ use rmrevin\yii\changelog\behaviors\ChangelogBehavior;
 class ShopItem extends ActiveRecord implements LoggableInterface
 {
 
+    /**
+     * @inheritdoc
+     */
     public function __toString()
     {
         return '[' . $this->number . '] ' . $this->title;

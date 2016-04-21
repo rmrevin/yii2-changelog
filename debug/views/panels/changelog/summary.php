@@ -10,7 +10,7 @@
 use yii\helpers\Html;
 
 ?>
-<div class="yii-debug-toolbar-block">
+<div class="yii-debug-toolbar__block">
     <?= Html::a($panel->getSummaryName(), $panel->getUrl(), [
         'title' => Yii::t('app', 'Show changelog.'),
     ]) ?>
