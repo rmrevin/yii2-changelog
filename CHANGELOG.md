@@ -1,4 +1,4 @@
-2016-06-01 - 0.1.3
+2016-06-01 - 0.1.4
 ------------------
 * Added the ability to use his model to save log.
 
