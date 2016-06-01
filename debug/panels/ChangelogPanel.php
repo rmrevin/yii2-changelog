@@ -7,6 +7,8 @@
 
 namespace rmrevin\yii\changelog\debug\panels;
 
+use rmrevin\yii\changelog;
+
 /**
  * Class ChangelogPanel
  * @package rmrevin\yii\changelog\debug\panels
@@ -19,6 +21,12 @@ class ChangelogPanel extends \yii\debug\Panel
 
     /** @var string */
     public $detailViewAlias = '@rmrevin/yii/changelog/debug/views/panels/changelog/detail';
+
+    /** @var string */
+    public $request = 'request';
+
+    /** @var string */
+    public $view = 'view';
 
     /**
      * @inheritdoc
@@ -51,10 +59,19 @@ class ChangelogPanel extends \yii\debug\Panel
      */
     public function getDetail()
     {
-        $searchModel = new \rmrevin\yii\changelog\debug\models\search\Changelog;
-        $dataProvider = $searchModel->search(\Yii::$app->get('request')->getQueryParams());
+        /** @var \yii\web\Request $request */
+        $request = \Yii::$app->get($this->request);
 
-        return \Yii::$app->view->render($this->detailViewAlias, [
+        /** @var \yii\web\View $view */
+        $view = \Yii::$app->get($this->view);
+
+        /** @var changelog\debug\models\search\Changelog $searchModel */
+        $searchModel = \Yii::createObject(changelog\debug\models\search\Changelog::className());
+
+        $dataProvider = $searchModel
+            ->search($request->getQueryParams());
+
+        return $view->render($this->detailViewAlias, [
             'panel' => $this,
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,

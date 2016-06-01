@@ -7,6 +7,8 @@
 
 namespace rmrevin\yii\changelog\debug\models\search;
 
+use rmrevin\yii\changelog\resources\queries\ChangelogQuery;
+
 /**
  * Class Changelog
  * @package common\debug\models\search
@@ -29,6 +31,10 @@ class Changelog extends \yii\debug\models\search\Base
      */
     public $entity_id;
 
+    /**
+     * @var string
+     */
+    public $changelogModel = 'rmrevin\yii\changelog\resources\Changelog';
 
     /**
      * @inheritdoc
@@ -62,7 +68,11 @@ class Changelog extends \yii\debug\models\search\Base
     {
         $this->load($params) && $this->validate();
 
-        $ChangelogQuery = \rmrevin\yii\changelog\resources\Changelog::find();
+        /** @var \yii\db\BaseActiveRecord $changelog_model */
+        $changelog_model = $this->changelogModel;
+
+        /** @var ChangelogQuery $ChangelogQuery */
+        $ChangelogQuery = $changelog_model::find();
 
         if (!empty($this->action)) {
             $ChangelogQuery->byAction($this->action);
@@ -76,13 +86,12 @@ class Changelog extends \yii\debug\models\search\Base
             $ChangelogQuery->byEntityId($this->entity_id);
         }
 
-        $dataProvider = new \yii\data\ActiveDataProvider([
+        return \Yii::createObject([
+            'class' => \yii\data\ActiveDataProvider::className(),
             'query' => $ChangelogQuery,
             'sort' => [
                 'defaultOrder' => ['created_at' => SORT_DESC],
             ],
         ]);
-
-        return $dataProvider;
     }
 }
