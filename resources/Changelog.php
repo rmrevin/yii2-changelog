@@ -7,6 +7,7 @@
 
 namespace rmrevin\yii\changelog\resources;
 
+use rmrevin\yii\changelog\interfaces\ChangelogModelInterface;
 use rmrevin\yii\changelog\interfaces\LoggableInterface;
 use yii\helpers\Json;
 
@@ -24,7 +25,7 @@ use yii\helpers\Json;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Changelog extends \yii\db\ActiveRecord
+class Changelog extends \yii\db\ActiveRecord implements ChangelogModelInterface
 {
 
     /** @var string Request component name */
@@ -59,9 +60,7 @@ class Changelog extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param \yii\db\ActiveRecord $Model
-     * @param array $ignoreAttributes
-     * @return static
+     * @inheritdoc
      */
     public static function logInsert($Model, $ignoreAttributes = [])
     {
@@ -96,10 +95,7 @@ class Changelog extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param \yii\db\ActiveRecord $Model
-     * @param array $ignoreAttributes
-     * @param array $changedAttributes array with data before update
-     * @return static|false
+     * @inheritdoc
      */
     public static function logUpdate($Model, $ignoreAttributes = [], $changedAttributes = [])
     {
@@ -153,9 +149,7 @@ class Changelog extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param \yii\db\ActiveRecord $Model
-     * @param array $ignoreAttributes
-     * @return static
+     * @inheritdoc
      */
     public static function logDelete($Model, $ignoreAttributes = [])
     {

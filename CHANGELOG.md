@@ -1,3 +1,7 @@
+2016-06-01 - 0.1.3
+------------------
+* Added the ability to use his model to save log.
+
 2016-04-21 - 0.1.2
 ------------------
 * Update summary debug panel view to new css.

@@ -7,6 +7,7 @@
 
 namespace rmrevin\yii\changelog\behaviors;
 
+use rmrevin\yii\changelog\interfaces\ChangelogModelInterface;
 use yii\db\BaseActiveRecord;
 
 /**
@@ -16,8 +17,15 @@ use yii\db\BaseActiveRecord;
 class ChangelogBehavior extends \yii\base\Behavior
 {
 
-    /** @var array exclude attributes */
+    /**
+     * @var array exclude attributes
+     */
     public $ignoreAttributes = [];
+
+    /**
+     * @var string
+     */
+    public $modelClass = 'rmrevin\yii\changelog\resources\Changelog';
 
     /**
      * @inheritdoc
@@ -39,7 +47,10 @@ class ChangelogBehavior extends \yii\base\Behavior
         /** @var \yii\db\ActiveRecord $Model */
         $Model = $Event->sender;
 
-        \rmrevin\yii\changelog\resources\Changelog::logInsert($Model, $this->ignoreAttributes);
+        /** @var ChangelogModelInterface $ChangelogModel */
+        $ChangelogModel = $this->modelClass;
+
+        $ChangelogModel::logInsert($Model, $this->ignoreAttributes);
     }
 
     /**
@@ -50,7 +61,10 @@ class ChangelogBehavior extends \yii\base\Behavior
         /** @var \yii\db\ActiveRecord $Model */
         $Model = $Event->sender;
 
-        \rmrevin\yii\changelog\resources\Changelog::logUpdate($Model, $this->ignoreAttributes, $Event->changedAttributes);
+        /** @var ChangelogModelInterface $ChangelogModel */
+        $ChangelogModel = $this->modelClass;
+
+        $ChangelogModel::logUpdate($Model, $this->ignoreAttributes, $Event->changedAttributes);
     }
 
     /**
@@ -61,6 +75,9 @@ class ChangelogBehavior extends \yii\base\Behavior
         /** @var \yii\db\ActiveRecord $Model */
         $Model = $Event->sender;
 
-        \rmrevin\yii\changelog\resources\Changelog::logDelete($Model, $this->ignoreAttributes);
+        /** @var ChangelogModelInterface $ChangelogModel */
+        $ChangelogModel = $this->modelClass;
+
+        $ChangelogModel::logDelete($Model, $this->ignoreAttributes);
     }
 }
