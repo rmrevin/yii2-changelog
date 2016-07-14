@@ -18,13 +18,13 @@ The preferred way to install this extension is through [composer](https://getcom
 Either run
 
 ```bash
-composer require "rmrevin/yii2-changelog:~0.1"
+composer require "rmrevin/yii2-changelog:~1.0"
 ```
 
 or add
 
 ```
-"rmrevin/yii2-changelog": "~0.1",
+"rmrevin/yii2-changelog": "~1.0",
 ```
 
 to the `require` section of your `composer.json` file.

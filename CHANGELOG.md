@@ -1,4 +1,4 @@
-2016-07-14 - master
+2016-07-14 - 1.0.0
 ------------------
 * Change mysql table engine to `ARCHIVE`.
 * Added collector log for the bulk insert.
