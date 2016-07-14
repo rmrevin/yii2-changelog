@@ -5,16 +5,22 @@
  * @link https://rmrevin.com
  *
  * @var rmrevin\yii\changelog\debug\panels\ChangelogPanel $panel
- * @var rmrevin\yii\changelog\debug\models\search\Changelog $searchModel
+ * @var rmrevin\yii\changelog\debug\models\search\ChangelogSearch $searchModel
  * @var yii\data\ActiveDataProvider $dataProvider
  */
 
 use rmrevin\yii\changelog\resources\Changelog;
 use yii\bootstrap\Modal;
+use yii\di\Instance;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\widgets\Pjax;
+
+/** @var Changelog $Model */
+$Model = Instance::ensure([
+    'class' => Changelog::className(),
+]);
 
 echo Html::tag('h1', $panel->getName());
 
@@ -29,11 +35,11 @@ echo GridView::widget([
         ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'action',
-            'filter' => Changelog::getActions(),
-            'value' => function ($data) {
+            'filter' => $Model::getActions(),
+            'value' => function ($data) use($Model) {
                 return empty($data['action'])
                     ? \Yii::t('app', 'Unknown')
-                    : Changelog::getActions()[$data['action']];
+                    : $Model::getActions()[$data['action']];
             },
             'options' => [
                 'width' => '10%',
@@ -42,12 +48,12 @@ echo GridView::widget([
         [
             'format' => 'raw',
             'attribute' => 'entity_type',
-            'filter' => Changelog::getAllEntityTypes(),
+            'filter' => $Model::getAllEntityTypes(),
             'value' => function ($data) {
                 $result = empty($data['entity_type']) ? \Yii::t('app', 'Unknown type') : $data['entity_type'];
 
-                if (!empty($data['entity'])) {
-                    $result .= '<br>' . Html::tag('small', sprintf(' > %s', $data['entity']));
+                if (!empty($data['present'])) {
+                    $result .= '<br>' . Html::tag('small', sprintf(' > %s', $data['present']));
                 }
 
                 return $result;

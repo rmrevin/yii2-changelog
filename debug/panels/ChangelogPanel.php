@@ -7,7 +7,7 @@
 
 namespace rmrevin\yii\changelog\debug\panels;
 
-use rmrevin\yii\changelog;
+use rmrevin\yii\changelog\debug\models\search\ChangelogSearch;
 
 /**
  * Class ChangelogPanel
@@ -65,8 +65,8 @@ class ChangelogPanel extends \yii\debug\Panel
         /** @var \yii\web\View $view */
         $view = \Yii::$app->get($this->view);
 
-        /** @var changelog\debug\models\search\Changelog $searchModel */
-        $searchModel = \Yii::createObject(changelog\debug\models\search\Changelog::className());
+        /** @var ChangelogSearch $searchModel */
+        $searchModel = \Yii::createObject(ChangelogSearch::className());
 
         $dataProvider = $searchModel
             ->search($request->getQueryParams());

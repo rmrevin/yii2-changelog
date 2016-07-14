@@ -7,11 +7,13 @@
 
 namespace rmrevin\yii\changelog\resources\queries;
 
+use yii\db\ActiveQuery;
+
 /**
  * Class ChangelogQuery
  * @package rmrevin\yii\changelog\resources\queries
  */
-class ChangelogQuery extends \yii\db\ActiveQuery
+class ChangelogQuery extends ActiveQuery
 {
 
     /**
@@ -43,9 +45,10 @@ class ChangelogQuery extends \yii\db\ActiveQuery
      */
     public function byEntity($entity_type, $entity_id)
     {
-        $this
-            ->byEntityType($entity_type)
-            ->byEntityId($entity_id);
+        $this->andWhere([
+            'entity_type' => $entity_type,
+            'entity_id' => $entity_id,
+        ]);
 
         return $this;
     }

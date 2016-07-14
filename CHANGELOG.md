@@ -1,3 +1,9 @@
+2016-07-14 - master
+------------------
+* Change mysql table engine to `ARCHIVE`.
+* Added collector log for the bulk insert.
+* Global refactoring.
+
 2016-06-01 - 0.1.4
 ------------------
 * Added the ability to use his model to save log.

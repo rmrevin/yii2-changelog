@@ -1,19 +1,22 @@
 <?php
 /**
- * Changelog.php
+ * ChangelogSearch.php
  * @author Revin Roman
  * @link https://rmrevin.com
  */
 
 namespace rmrevin\yii\changelog\debug\models\search;
 
+use rmrevin\yii\changelog\resources\Changelog;
 use rmrevin\yii\changelog\resources\queries\ChangelogQuery;
+use yii\data\ActiveDataProvider;
+use yii\di\Instance;
 
 /**
- * Class Changelog
+ * Class ChangelogSearch
  * @package common\debug\models\search
  */
-class Changelog extends \yii\debug\models\search\Base
+class ChangelogSearch extends \yii\debug\models\search\Base
 {
 
     /**
@@ -30,11 +33,6 @@ class Changelog extends \yii\debug\models\search\Base
      * @var integer query attribute input search value
      */
     public $entity_id;
-
-    /**
-     * @var string
-     */
-    public $changelogModel = 'rmrevin\yii\changelog\resources\Changelog';
 
     /**
      * @inheritdoc
@@ -62,17 +60,19 @@ class Changelog extends \yii\debug\models\search\Base
      * Returns data provider with filled models. Filter applied if needed.
      *
      * @param array $params an array of parameter values indexed by parameter names
-     * @return \yii\data\ArrayDataProvider
+     * @return ActiveDataProvider
      */
     public function search($params)
     {
         $this->load($params) && $this->validate();
 
-        /** @var \yii\db\BaseActiveRecord $changelog_model */
-        $changelog_model = $this->changelogModel;
+        /** @var \yii\db\BaseActiveRecord $Model */
+        $Model = Instance::ensure([
+            'class' => Changelog::className(),
+        ]);
 
         /** @var ChangelogQuery $ChangelogQuery */
-        $ChangelogQuery = $changelog_model::find();
+        $ChangelogQuery = $Model::find();
 
         if (!empty($this->action)) {
             $ChangelogQuery->byAction($this->action);
@@ -86,12 +86,15 @@ class Changelog extends \yii\debug\models\search\Base
             $ChangelogQuery->byEntityId($this->entity_id);
         }
 
-        return \Yii::createObject([
-            'class' => \yii\data\ActiveDataProvider::className(),
+        /** @var ActiveDataProvider $DataProvider */
+        $DataProvider = \Yii::createObject([
+            'class' => ActiveDataProvider::className(),
             'query' => $ChangelogQuery,
             'sort' => [
                 'defaultOrder' => ['created_at' => SORT_DESC],
             ],
         ]);
+
+        return $DataProvider;
     }
 }

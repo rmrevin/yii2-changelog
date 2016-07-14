@@ -62,9 +62,9 @@ Example:
 ```php
 <?php
 
-use yii\db\ActiveRecord;
 use rmrevin\yii\changelog\interfaces\LoggableInterface;
 use rmrevin\yii\changelog\behaviors\ChangelogBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * Class ShopItem
@@ -84,7 +84,7 @@ class ShopItem extends ActiveRecord implements LoggableInterface
      */
     public function __toString()
     {
-        return '[' . $this->number . '] ' . $this->title;
+        return sprintf('[%s] %s', $this->number, $this->title);
     }
 
     /**
@@ -109,4 +109,4 @@ class ShopItem extends ActiveRecord implements LoggableInterface
 Done
 ----
 Now when you try to create, modify or delete an instance of a model `ShopItem`
-in the table `%changelog` will be recorded relevant information.
+in the table `{{%changelog}}` will be recorded relevant information.
