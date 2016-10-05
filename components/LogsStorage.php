@@ -42,7 +42,9 @@ class LogsStorage extends Component implements LogsStorageInterface
         ]);
 
         /** @var Log $Log */
-        $Log = Instance::ensure(['class' => Log::className()]);
+        $Log = Instance::ensure([
+            'class' => Log::className(),
+        ]);
 
         $columns = $Log::schema();
 

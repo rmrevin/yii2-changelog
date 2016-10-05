@@ -32,16 +32,6 @@ class Changelog extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
-        return [
-            'timestamp' => TimestampBehavior::className(),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [

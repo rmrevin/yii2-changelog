@@ -27,6 +27,22 @@ class Log extends Model
     public $present;
     public $changes;
     public $env;
+    public $created_at;
+    public $updated_at;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        /** @var \yii\i18n\Formatter $Formatter */
+        $Formatter= \Yii::$app->get('formatter');
+
+        $this->created_at = $Formatter->asTimestamp(time());
+        $this->updated_at = $Formatter->asTimestamp(time());
+    }
 
     /**
      * @return array
@@ -40,6 +56,8 @@ class Log extends Model
             $this->present,
             $this->changes,
             $this->getEnvData(),
+            $this->created_at,
+            $this->updated_at,
         ];
     }
 
@@ -55,6 +73,8 @@ class Log extends Model
             'present',
             'changes',
             'env',
+            'created_at',
+            'updated_at',
         ];
     }
 
