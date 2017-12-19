@@ -7,7 +7,7 @@ For license information check the [LICENSE](https://github.com/rmrevin/yii2-chan
 
 Support
 -------
-* [GutHub issues](https://github.com/rmrevin/yii2-changelog/issues)
+* [GitHub issues](https://github.com/rmrevin/yii2-changelog/issues)
 * [Public chat](https://gitter.im/rmrevin/support)
 
 Installation
